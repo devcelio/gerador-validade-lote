@@ -20,34 +20,40 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row border p-2">
             <form id="form">
-                <div class="row gap-2">
-                    <div class="col">
-                        <label for="">Fabricação</label>
-                        <input name="manifacturingDate" type="date" class="form-control">
+                <div>
+                    <!-- <h2 class="mb-0 mt-2">Parte 1</h2> -->
+                    <div class="row gap-2">
+                        <div class="col">
+                            <label for="">Fabricação</label>
+                            <input name="manifacturingDate" type="date" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="">Validade</label>
+                            <input name="expirationDate" type="date" class="form-control" >
+                        </div>    
                     </div>
-                    <div class="col">
-                        <label for="">Validade</label>
-                        <input name="expirationDate" type="date" class="form-control" >
-                    </div>
-                    <div>
-                        <button class="btn btn-outline-secondary" type="button" onclick="printElement('#page')">Imprimir</button>
-                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <button class="btn btn-outline-secondary" type="button" onclick="printElement('#page')">Imprimir</button>
                 </div>
             </form>
         </div>
         
+
         <h1>Visualização</h1>
-        <div class="row" style="width:21cm; height:29.7cm; overflow: scroll;">
-            <div class="card" id="page">                
-                <div class="card-body p-2">
-                    <div class="row" id="content">
-                    
-                    </div>
+        <div class="row border" style="width:21.1cm; height:29.7cm; overflow: scroll; scrollbar-width: none;">
+            <div id="page" class="p-0">                
+                
+                <div class="d-flex flex-wrap" id="content">
+                
                 </div>
+                
             </div>
         </div>
+
     </div>
     
     <script>
@@ -63,9 +69,17 @@
             const manifacturingDate = formattedDate(data.get('manifacturingDate'));
             const expirationDate = formattedDate(data.get('expirationDate'));
             let content = '';
-            for (let index = 0; index < 162; index++) {
+
+            const colunas = 6;
+            const linhas = 30;
+
+            const largura = 21 / colunas;
+            const altura = 29.7 / linhas;
+            const itens = linhas * colunas;
+
+            for (let index = 0; index < itens; index++) {
                 content += `
-                    <div class="col-2 border" style="font-size: 12px">
+                    <div class="border ps-2" style="font-size: 12px; width: ${largura}cm; height: ${altura}cm;">
                         <div>Fab.: ${manifacturingDate}</div>
                         <div>Val.: ${expirationDate}</div>
                     </div>
